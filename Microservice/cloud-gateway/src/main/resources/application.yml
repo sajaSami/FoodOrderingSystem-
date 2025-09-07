@@ -1,0 +1,32 @@
+server:
+    port: 1919
+    
+spring:
+    application:
+        name: API-GATEWAY
+    cloud: 
+        gateway:
+            server:
+                webmvc:
+                    routes:
+                        - id: ITEMSERVICE
+                          uri: lb://ITEMSERVICE
+                          predicates:
+                              - Path=/items/**
+                        - id: ORDERSERVICE
+                          uri: lb://ORDERSERVICE
+                          predicates:
+                              - Path=/orders/**      
+                        
+                        
+                        
+        
+
+eureka: 
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url: 
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        hostname: localhost
